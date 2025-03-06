@@ -1,0 +1,212 @@
+{
+  "version": 4,
+  "terraform_version": "1.11.0",
+  "serial": 11,
+  "lineage": "78dbe147-b5fb-a2cb-180d-61546de254bb",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_iam_policy",
+      "name": "lambda_policy",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::405894839359:policy/aws-lambda-email-notification-system_lambda_policy",
+            "attachment_count": 1,
+            "description": "Permisos para Lambda",
+            "id": "arn:aws:iam::405894839359:policy/aws-lambda-email-notification-system_lambda_policy",
+            "name": "aws-lambda-email-notification-system_lambda_policy",
+            "name_prefix": "",
+            "path": "/",
+            "policy": "{\"Statement\":[{\"Action\":[\"sqs:ReceiveMessage\",\"sqs:DeleteMessage\",\"sqs:GetQueueAttributes\"],\"Effect\":\"Allow\",\"Resource\":\"*\"},{\"Action\":[\"sns:Publish\"],\"Effect\":\"Allow\",\"Resource\":\"*\"},{\"Action\":[\"logs:CreateLogGroup\",\"logs:CreateLogStream\",\"logs:PutLogEvents\"],\"Effect\":\"Allow\",\"Resource\":\"*\"},{\"Action\":[\"s3:GetObject\",\"s3:PutObject\"],\"Effect\":\"Allow\",\"Resource\":\"arn:aws:s3:::lambda-function-code-bucket/*\"}],\"Version\":\"2012-10-17\"}",
+            "policy_id": "ANPAV5AJXXQ7WRAUYPXDV",
+            "tags": {},
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role",
+      "name": "lambda_execution_role",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:iam::405894839359:role/aws-lambda-email-notification-system_lambda_role",
+            "assume_role_policy": "{\"Statement\":[{\"Action\":\"sts:AssumeRole\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"}}],\"Version\":\"2012-10-17\"}",
+            "create_date": "2025-03-05T05:01:13Z",
+            "description": "",
+            "force_detach_policies": false,
+            "id": "aws-lambda-email-notification-system_lambda_role",
+            "inline_policy": [],
+            "managed_policy_arns": [
+              "arn:aws:iam::405894839359:policy/aws-lambda-email-notification-system_lambda_policy"
+            ],
+            "max_session_duration": 3600,
+            "name": "aws-lambda-email-notification-system_lambda_role",
+            "name_prefix": "",
+            "path": "/",
+            "permissions_boundary": "",
+            "tags": {},
+            "tags_all": {},
+            "unique_id": "AROAV5AJXXQ7UNRSJARAO"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_iam_role_policy_attachment",
+      "name": "lambda_policy_attachment",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "id": "aws-lambda-email-notification-system_lambda_role-20250305050113767800000001",
+            "policy_arn": "arn:aws:iam::405894839359:policy/aws-lambda-email-notification-system_lambda_policy",
+            "role": "aws-lambda-email-notification-system_lambda_role"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_iam_policy.lambda_policy",
+            "aws_iam_role.lambda_execution_role"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_sns_topic",
+      "name": "notification_topic",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "application_failure_feedback_role_arn": "",
+            "application_success_feedback_role_arn": "",
+            "application_success_feedback_sample_rate": 0,
+            "archive_policy": "",
+            "arn": "arn:aws:sns:us-east-1:405894839359:aws-lambda-email-notification-system_sns_topic",
+            "beginning_archive_time": "",
+            "content_based_deduplication": false,
+            "delivery_policy": "",
+            "display_name": "",
+            "fifo_topic": false,
+            "firehose_failure_feedback_role_arn": "",
+            "firehose_success_feedback_role_arn": "",
+            "firehose_success_feedback_sample_rate": 0,
+            "http_failure_feedback_role_arn": "",
+            "http_success_feedback_role_arn": "",
+            "http_success_feedback_sample_rate": 0,
+            "id": "arn:aws:sns:us-east-1:405894839359:aws-lambda-email-notification-system_sns_topic",
+            "kms_master_key_id": "",
+            "lambda_failure_feedback_role_arn": "",
+            "lambda_success_feedback_role_arn": "",
+            "lambda_success_feedback_sample_rate": 0,
+            "name": "aws-lambda-email-notification-system_sns_topic",
+            "name_prefix": "",
+            "owner": "405894839359",
+            "policy": "{\"Id\":\"__default_policy_ID\",\"Statement\":[{\"Action\":[\"SNS:GetTopicAttributes\",\"SNS:SetTopicAttributes\",\"SNS:AddPermission\",\"SNS:RemovePermission\",\"SNS:DeleteTopic\",\"SNS:Subscribe\",\"SNS:ListSubscriptionsByTopic\",\"SNS:Publish\"],\"Condition\":{\"StringEquals\":{\"AWS:SourceOwner\":\"405894839359\"}},\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"*\"},\"Resource\":\"arn:aws:sns:us-east-1:405894839359:aws-lambda-email-notification-system_sns_topic\",\"Sid\":\"__default_statement_ID\"}],\"Version\":\"2008-10-17\"}",
+            "signature_version": 0,
+            "sqs_failure_feedback_role_arn": "",
+            "sqs_success_feedback_role_arn": "",
+            "sqs_success_feedback_sample_rate": 0,
+            "tags": {},
+            "tags_all": {},
+            "tracing_config": ""
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA=="
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_sns_topic_subscription",
+      "name": "sns_to_sqs",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:sns:us-east-1:405894839359:aws-lambda-email-notification-system_sns_topic:be6b2dbe-a0bd-4b26-b0b2-00ff488232aa",
+            "confirmation_timeout_in_minutes": 1,
+            "confirmation_was_authenticated": true,
+            "delivery_policy": "",
+            "endpoint": "arn:aws:sqs:us-east-1:405894839359:aws-lambda-email-notification-system_sqs_queue",
+            "endpoint_auto_confirms": false,
+            "filter_policy": "",
+            "filter_policy_scope": "",
+            "id": "arn:aws:sns:us-east-1:405894839359:aws-lambda-email-notification-system_sns_topic:be6b2dbe-a0bd-4b26-b0b2-00ff488232aa",
+            "owner_id": "405894839359",
+            "pending_confirmation": false,
+            "protocol": "sqs",
+            "raw_message_delivery": false,
+            "redrive_policy": "",
+            "replay_policy": "",
+            "subscription_role_arn": "",
+            "topic_arn": "arn:aws:sns:us-east-1:405894839359:aws-lambda-email-notification-system_sns_topic"
+          },
+          "sensitive_attributes": [],
+          "private": "bnVsbA==",
+          "dependencies": [
+            "aws_sns_topic.notification_topic",
+            "aws_sqs_queue.notification_queue"
+          ]
+        }
+      ]
+    },
+    {
+      "mode": "managed",
+      "type": "aws_sqs_queue",
+      "name": "notification_queue",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 0,
+          "attributes": {
+            "arn": "arn:aws:sqs:us-east-1:405894839359:aws-lambda-email-notification-system_sqs_queue",
+            "content_based_deduplication": false,
+            "deduplication_scope": "",
+            "delay_seconds": 0,
+            "fifo_queue": false,
+            "fifo_throughput_limit": "",
+            "id": "https://sqs.us-east-1.amazonaws.com/405894839359/aws-lambda-email-notification-system_sqs_queue",
+            "kms_data_key_reuse_period_seconds": 300,
+            "kms_master_key_id": "",
+            "max_message_size": 262144,
+            "message_retention_seconds": 345600,
+            "name": "aws-lambda-email-notification-system_sqs_queue",
+            "name_prefix": "",
+            "policy": "",
+            "receive_wait_time_seconds": 0,
+            "redrive_allow_policy": "",
+            "redrive_policy": "",
+            "sqs_managed_sse_enabled": true,
+            "tags": {},
+            "tags_all": {},
+            "timeouts": null,
+            "url": "https://sqs.us-east-1.amazonaws.com/405894839359/aws-lambda-email-notification-system_sqs_queue",
+            "visibility_timeout_seconds": 30
+          },
+          "sensitive_attributes": [],
+          "private": "eyJlMmJmYjczMC1lY2FhLTExZTYtOGY4OC0zNDM2M2JjN2M0YzAiOnsiY3JlYXRlIjoxODAwMDAwMDAwMDAsImRlbGV0ZSI6MTgwMDAwMDAwMDAwLCJ1cGRhdGUiOjE4MDAwMDAwMDAwMH19"
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
