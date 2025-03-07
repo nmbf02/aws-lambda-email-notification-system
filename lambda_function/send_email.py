@@ -10,15 +10,27 @@ def lambda_handler(event, context):
     smtp_password = os.environ['SMTP_PASSWORD']
 
     for record in event['Records']:
-        message = json.loads(record['body'])
+        # Comprobar si el mensaje proviene de SNS
+        if 'Sns' in record:
+            message = json.loads(record['Sns']['Message'])
+        else:
+            message = json.loads(record['body'])
 
-        to = message.get('to', '')
-        cc = message.get('cc', '')
-        bcc = message.get('bcc', '')
-        subject = message.get('subject', 'Sin asunto')
-        body = message.get('body', 'Mensaje vacío')
-        sender = message.get('origen', smtp_user)
-
+        to = message.get('to', '').strip()
+        cc = message.get('cc', '').strip()
+        bcc = message.get('bcc', '').strip()
+        subject = message.get('subject', 'Sin asunto').strip()
+        body = message.get('body', 'Mensaje vacío').strip()
+        sender = message.get('origen', smtp_user).strip()
+        
+        # Validar campos obligatorios
+        if not to or not sender:
+            print("El campo 'to' o 'origen' está vacío. No se enviará el correo.")
+            return {
+                'statusCode': 400,
+                'body': json.dumps('Error: El campo destinatario o el remitente están vacíos.')
+            }
+        
         # Crear el correo electrónico
         email = EmailMessage()
         email['From'] = sender
@@ -27,6 +39,10 @@ def lambda_handler(event, context):
         email['Bcc'] = bcc
         email['Subject'] = subject
         email.set_content(body)
+
+        # Mostrar el contenido del mensaje para depuración
+        print("Mensaje preparado para enviar:")
+        print(email)
 
         try:
             with smtplib.SMTP(smtp_server, smtp_port) as smtp:
