@@ -1,4 +1,4 @@
-# Rol de IAM para la función Lambda
+# Rol de IAM para la función Lambda 
 resource "aws_iam_role" "lambda_execution_role" {
   name = "${var.project_name}_lambda_role"
 
