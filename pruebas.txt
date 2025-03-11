@@ -1,0 +1,48 @@
+Pruebas a implementar
+
+SNS
+
+{
+    "to": "learning.eleazargarcia@gmail.com",
+    "cc": "nathalyberroa@alumno.utesa.edu",
+    "bcc": "ivanmendoza@docente.utesa.edu",
+    "subject": "Prueba de Correo SNS",
+    "body": "Mensaje enviado desde SNS correctamente.",
+    "origen": "nathalyberroaf@gmail.com"
+}
+
+LAMBDa
+
+{
+"Records": [
+{
+"body": "{\"to\":\"learning.eleazargarcia@gmail.com\",\"cc\":\"nberroaf@gmail.com\",\"bcc\":\"kalonstore.f@gmail.com\",\"subject\":\"Correo de prueba\",\"body\":\"Este es un mensaje de prueba.\",\"origen\":\"nathalyberroaf@gmail.com\"}"
+}
+]
+}
+
+SQS
+
+{
+  "to": "learning.eleazargarcia@gmail.com",
+  "cc": "nathalyberroaf@gmail.com",
+  "bcc": "nathalyberroaf@gmail.com",
+  "subject": "Prueba directa en SQS",
+  "body": "Mensaje enviado directamente desde SQS.",
+  "origen": "nathalyberroaf@gmail.com"
+}
+
+-----Outputs.tf
+Propósito: Generalmente, Outputs.tf se utiliza para exportar valores clave, como el ARN de la función Lambda o la URL de la cola SQS.
+Por qué está vacío: No necesitas exponer ninguna salida específica, ya que el sistema funciona automáticamente sin necesidad de referencias externas.
+
+-----main.tf
+Propósito: main.tf usualmente contiene la configuración principal de Terraform.
+Por qué está vacío: Has dividido las configuraciones en archivos específicos (iam.tf, lambda.tf, s3.tf, etc.), lo cual es una buena práctica. Esto hace que main.tf sea innecesario.
+
+-----confif.json
+Propósito: Se usa generalmente para almacenar configuraciones dinámicas, como las credenciales de SMTP.
+Por qué está vacío: Estás utilizando variables de entorno directamente en Lambda, lo cual hace innecesario el config.json.
+
+ - Terraform es una herramienta de IAC que utilizan principalmente los equipos de DevOps para automatizar diversas tareas de infraestructura
+ - Terraform genera un plan y le solicita su aprobación antes de modificar su infraestructura
